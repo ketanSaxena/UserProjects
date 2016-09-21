@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export default mongoose.model('Role', new mongoose.Schema({
+export default mongoose.model('Roles', new mongoose.Schema({
   title: String,
   description: String
 }));

@@ -36,11 +36,13 @@ app.put('/users/:id/projects', UserService.addOrRemoveProject);
 app.post('/users', UserService.createNew);
 app.delete('/users', UserService.removeUser);
 
-app.get('/projects', ProjectService.getProjectDetails);
-app.get('/project/:id', ProjectService.fetchAll);
+app.get('/projects', ProjectService.fetchAll);
+app.get('/project/:id', ProjectService.getProjectDetails);
 app.post('/projects', ProjectService.createNew);
 app.get('/project/:id/users', ProjectService.getAssignedUsers);
 app.delete('/projects', ProjectService.removeProject);
+
+app.get('/roles', RoleService.fetchAll);
 
 //Start app
 app.listen(app.get('port'), function() {
