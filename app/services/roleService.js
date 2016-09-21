@@ -11,4 +11,4 @@ var RoleService = {
   }
 };
 
-export default UserService;
+export default RoleService;
