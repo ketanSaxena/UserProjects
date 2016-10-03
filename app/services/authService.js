@@ -22,14 +22,13 @@ var UserService = {
         return res.send(err);
       if(!user) {
         res.status(unauthorized)
-          .send({success: false: message: 'User does not exist'});
-      } else if(bcrypt.compareSync(creds.password, user.password) {
+          .send({success: false, message: CONSTANTS.RESPONSE_MESSAGES.userNotFound});
+      } else if(bcrypt.compareSync(creds.password, user.password)) {
         res.json({ success: true , token: _generateToken(user)});
       } else {
         res.status(unauthorized)
-          .send({success: false: message: 'Password incorrect'});
+          .send({success: false, message: CONSTANTS.RESPONSE_MESSAGES.wrongPassword });
       }
-      
     });
   },
 };
