@@ -1,5 +1,4 @@
 import Users from '../models/Users';
-import bcrypt from 'bcrypt';
 import _ from 'underscore';
 import CONSTANTS from '../constants';
 
@@ -22,21 +21,22 @@ var UserService = {
     });
 	},
 
+  getIndex: (req, res) => {
+    res.json({result: 'Application running successfully on port 3000.', status: 'OK'});
+  },
+
 	createNew: (req, res) => {
     var user = req.body;
 		if(user && user.userId) {
-      bcrypt.hash(user.password, CONSTANTS.SALT_ROUNDS, function(err, hash) {
-        user.password = hash;
-        Users.create(req.body, (err, result) => {
-          if (err) {
-            return res.send(err);
-          }
-          res.json({ success: true });
-        });
-      });			
+      Users.create(req.body, (err, result) => {
+        if (err) {
+          return res.send(err);
+        }
+        res.json({ success: true });
+      });
 		} else {
       res.status(CONSTANTS.ERR_CODES.badRequest)
-        .send({success: false: message: 'Bad Request'});
+        .send({success: false, message: CONSTANTS.RESPONSE_MESSAGES.badRequest});
     }
 	},
 
@@ -49,7 +49,7 @@ var UserService = {
           return res.send(err);
         }
         res.json({ success: true });
-      }); 
+      });
     }
   },
 
@@ -66,7 +66,7 @@ var UserService = {
     Users.findOne({ '_id': req.params.id }, (err, user) => {
       if (err) {
         return res.send(err);
-      } 
+      }
       var query = {};
       if(user && !user.is_super_admin) {
         var projectIds = _.pluck(projects, 'project_id');
@@ -85,19 +85,19 @@ var UserService = {
   addOrRemoveProject: (req, res) => {
     var params = req.body;
     if(params.id && params.projectId) {
-      var updateQuery; 
+      var updateQuery;
       if(params.toAdd) {
         updateQuery = { $addToSet: { projects: {
           project_id: params.projectId, role_id: params.roleId
         }}};
       } else {
-        updateQuery = { $pull: projects: {project_id: params.projectId}};
-      } 
+        updateQuery = { $pull: {projects: { project_id: params.projectId }}};
+      }
       _addOrRemoveProject(params.id, updateQuery, true);
     } else {
       res.status(CONSTANTS.ERR_CODES.badRequest)
-        .send({success: false: message: 'Bad Request'});
-    }  
+        .send({success: false, message: CONSTANTS.RESPONSE_MESSAGES.badRequest});
+    }
   },
 
   removeUser: (req, res) => {
@@ -106,7 +106,7 @@ var UserService = {
         return res.send(err);
       if(user && user.is_super_admin) {
         res.status(CONSTANTS.ERR_CODES.unauthorized)
-        .send({success: false: message: 'Cannot remove super admin'});
+        .send({success: false, message: CONSTANTS.RESPONSE_MESSAGES.superAdminRemoval});
       } else {
         Users.findByIdAndRemove(req.body.id, (err, result) => {
           if (err) return res.send(err);
@@ -114,8 +114,7 @@ var UserService = {
         });
       }
     });
-    
-  };
+  }
 };
 
 export default UserService;

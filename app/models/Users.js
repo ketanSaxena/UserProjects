@@ -8,7 +8,7 @@ var UserSchema = new mongoose.Schema({
   	last_name: String,
   },
   is_super_admin: Boolean,
-  projects: { project_id: String, role_id: String },
+  projects: [{ project_id: String, role_id: String }],
 });
 
 export default mongoose.model('Users', UserSchema);

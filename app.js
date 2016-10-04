@@ -4,6 +4,7 @@ import methodOverride from 'method-override';
 import mongoose from 'mongoose';
 import http from 'http';
 import UserService from './app/services/userService';
+import RoleService from './app/services/roleService';
 import ProjectService from './app/services/projectService';
 import AuthService from './app/services/authService';
 import jwt from 'jwt-simple';
