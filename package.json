@@ -1,22 +1,22 @@
 {
-  "name": "projects",
+  "name": "user_projects",
   "version": "1.0.0",
-  "description": "API endpoints for projects and their users",
+  "description": "Node API end points for users and their projects",
   "main": "app.js",
   "scripts": {
-    "dev": "babel-node app.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node app.js"
   },
-  "author": "ketan saxena",
+  "author": "ketanSaxena",
   "license": "ISC",
   "dependencies": {
-    "babel-cli": "^6.14.0",
-    "babel-preset-es2015": "^6.14.0",
-    "body-parser": "*",
+    "babel-cli": "^6.16.0",
+    "babel-preset-es2015": "^6.16.0",
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
-    "mongoose": "*",
-    "method-override": "*",
-    "bcrypt": "*",
-    "jwt-simple": "*",
-    "underscore": "*"
+    "jwt-simple": "^0.5.0",
+    "method-override": "^2.3.6",
+    "mongoose": "^4.6.2",
+    "underscore": "^1.8.3"
   }
 }

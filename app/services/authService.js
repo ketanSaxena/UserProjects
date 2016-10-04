@@ -23,7 +23,7 @@ var UserService = {
       if(!user) {
         res.status(unauthorized)
           .send({success: false, message: CONSTANTS.RESPONSE_MESSAGES.userNotFound});
-      } else if(bcrypt.compareSync(creds.password, user.password)) {
+      } else if(creds.password === user.password) {
         res.json({ success: true , token: _generateToken(user)});
       } else {
         res.status(unauthorized)
